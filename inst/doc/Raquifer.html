@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Raquifer</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Raquifer</h1>
+
+
+
+<div id="raquifer" class="section level2">
+<h2><code>Raquifer</code></h2>
+<p><code>Raquifer</code> estimates the cumulative water influx into hydrocarbon reservoirs using un-steady and pseudo-steady state modeling approaches. It generates a data frame of cumulative water influx over time for edge-drive and bottom-drive aquifers. Van Everdingen and Hurst un-steady state model for the constant terminal pressure solution predicts the cumulative influx for edge-water drive aquifers with radial flow <span class="citation">(Van Everdingen &amp; Hurst, 1949)</span>. For the bottom-water drive aquifers with linear/radial flow, the Yildiz-Khosravi un-steady state model for the constant terminal pressure solution is used <span class="citation">(Yildiz &amp; Khosravi, 2007)</span>. Nabor and Barham linear flow model for the constant terminal pressure solution is used for the edge-water and bottom-water drive aquifers modeling<span class="citation">(Nabor &amp; Barham, 1964)</span>. For the linear and radial pseudo-steady state flow modeling in aquifers, the Fetkovich method is used <span class="citation">(Fetkovich, 1971)</span>.</p>
+<p>Cumulative water influx predictions are generated by three different functions: <code>aquifer_param()</code>, <code>aquifer_time()</code>, and <code>aquifer_predict()</code>.</p>
+</div>
+<div id="aquifer_param-arguments" class="section level2">
+<h2><code>aquifer_param() arguments</code></h2>
+<ul>
+<li><code>input_unit</code>: A unit system for parameters, a character string either ‘SI’ or ‘Field’</li>
+<li><code>output_unit</code>: A unit system for properties, a character string either ‘SI’ or ‘Field’</li>
+<li><code>param model</code>: State of flow in the aquifer, a character string either ‘uss’ for the un-steady state flow or ‘pss’ for the pseudo-steady state flow</li>
+<li><code>flow_type</code>: A character string either ‘radial’ or ‘linear’</li>
+<li><code>water_drive</code>: A character string either ‘edge’ or ‘bottom’</li>
+<li><code>phi</code>: Aquifer porosity, a numeric fraction</li>
+<li><code>perm_h</code>: Aquifer horizontal permeability in ‘md’ in both ‘SI’ and ‘Field’ input unit systems. A NULL value must be used for the combination of ‘uss’, ‘linear’, and ‘bottom’ flow</li>
+<li><code>perm_v</code>: Aquifer vertical permeability in ‘md’ in both ‘SI’ and ‘Field’ input unit systems. A NULL value must be used for the combination of ‘uss’, ‘linear’, ‘edge’ flow. A NULL value must be used for the combination of ‘uss’, ‘radial’, ‘edge’ flow. A NULL value must be used for the combination of ‘pss’, ‘radial’, ‘edge’ flow.</li>
+<li><code>h_a</code>: Aquifer` height in ‘m’ or ‘ft’ in ‘SI’ and ‘Field’ input unit systems, respectively.</li>
+<li><code>r_a</code>: Aquifer radius in ‘m’ or ‘ft’ in ‘SI’ and ‘Field’ input unit systems, respectively. A NULL value must be used for the combination of ‘uss’, ‘linear’, ‘edge’ flow. A NULL value must be used for the combination of ‘uss’, ‘linear’, ‘bottom’ flow.</li>
+<li><code>r_R</code>: Reservoir radius in ‘m’ or ‘ft’ in ‘SI’ and ‘Field’ input unit systems, respectively. A NULL value must be used for the combination of ‘uss’, ‘linear’, ‘edge’ flow. A NULL value must be used for the combination of ‘uss’, ‘linear’, ‘bottom’ flow.</li>
+<li><code>w_a</code>: Aquifer width in ‘m’ or ‘ft’ in ‘SI’ and ‘Field’ input unit systems, respectively. A NULL value must be used for the combination of ‘uss’, ‘radial’, ‘edge’ flow. A NULL value must be used for the combination of ‘uss’, ‘radial’, ‘bottom’ flow. A NULL value must be used for the combination of ‘pss’, ‘radial’, ‘edge’ flow.</li>
+<li><code>l_a</code>: Aquifer length in ‘m’ or ‘ft’ in ‘SI’ and ‘Field’ input unit systems, respectively. A NULL value must be used for the combination of ‘uss’, ‘radial’, ‘edge’ flow. A NULL value must be used for the combination of ‘uss’, ‘radial’, ‘bottom’ flow. A NULL value must be used for the combination of ‘pss’, ‘radial’, ‘edge’ flow.</li>
+<li><code>tetha</code>: Fraction of reservoir encircled by the aquifer, reported in “degrees” in both ‘SI’ and ‘Field’ input unit systems. A NULL value must be used for the combination of ‘uss’, ‘radial’, ‘bottom’ flow. A NULL value must be used for the combination of ‘uss’, ‘linear’, ‘edge’ flow. A NULL value must be used for the combination of ‘uss’, ‘linear’, ‘bottom’ flow.</li>
+<li><code>mu_water</code>: Water viscosity in ‘mPa.s’ or ‘cp’ in ‘SI’ and ‘Field’ input unit systems, respectively</li>
+<li><code>c_water</code>: Water compressibility in ‘1/kPa’ or ‘1/psi’ in ‘SI’ and ‘Field’ input unit systems, respectively</li>
+<li><code>c_rock</code>: Rock compressibility in ‘1/kPa’ or ‘1/psi’ in ‘SI’ and ‘Field’ input unit systems, respectively</li>
+<li><code>pressure</code>: A numeric vector of pressure data at the boundary of reservoir/aquifer. Must have the same length as the ‘aquifer_time()’ object</li>
+</ul>
+</div>
+<div id="aquifer_time-arguments" class="section level2">
+<h2><code>aquifer_time() arguments</code></h2>
+<ul>
+<li><code>x</code>: A vector or sequence of times/dates.</li>
+<li><code>unit</code>: A unit system for input vector x.</li>
+</ul>
+</div>
+<div id="aquifer_predict-arguments" class="section level2">
+<h2><code>aquifer_predict() arguments</code></h2>
+<ul>
+<li><code>aquifer_lst</code>: A list object of class ‘decline’.</li>
+<li><code>time_lst</code>: A list object of class ‘time’</li>
+</ul>
+</div>
+<div id="installation" class="section level2">
+<h2><code>Installation</code></h2>
+<p>The <code>Raquifer</code> can be installed from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;Raquifer&quot;</span>)</a></code></pre></div>
+</div>
+<div id="examples" class="section level2">
+<h2><code>Examples</code></h2>
+<div id="example-1-un-steady-state-radial-flow-edge-water-drive" class="section level4">
+<h4><code>Example 1: Un-steady state radial flow, edge-water drive</code></h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.368</span>,<span class="fl">2.439</span>,<span class="fl">4.957</span>,<span class="fl">7.732</span>,<span class="fl">11.926</span>,<span class="fl">18.126</span>,<span class="fl">30.044</span>) <span class="op">*</span><span class="st"> </span><span class="dv">365</span>, <span class="dt">unit =</span> <span class="st">&quot;day&quot;</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6"></a>
+<a class="sourceLine" id="cb2-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;uss&quot;</span>, </a>
+<a class="sourceLine" id="cb2-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;radial&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;edge&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_h =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb2-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">r_a =</span> <span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">14892</span>, <span class="dt">r_R =</span> <span class="dv">14892</span>, <span class="dt">tetha =</span> <span class="dv">180</span>,</a>
+<a class="sourceLine" id="cb2-10" title="10">                            <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, </a>
+<a class="sourceLine" id="cb2-11" title="11">                            <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb2-12" title="12"></a>
+<a class="sourceLine" id="cb2-13" title="13">aqu_time</a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; $t</span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; [1]     0.000   134.320   890.235  1809.305  2822.180  4352.990  6615.990</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt; [8] 10966.060</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; $unit</span></a>
+<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; [1] &quot;day&quot;</span></a>
+<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-21" title="21"><span class="co">#&gt; $reference_date</span></a>
+<a class="sourceLine" id="cb2-22" title="22"><span class="co">#&gt; [1] &quot;2020-05-12&quot;</span></a>
+<a class="sourceLine" id="cb2-23" title="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-24" title="24"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb2-25" title="25"><span class="co">#&gt; [1] &quot;day&quot;  &quot;time&quot;</span></a>
+<a class="sourceLine" id="cb2-26" title="26"></a>
+<a class="sourceLine" id="cb2-27" title="27">parameters</a>
+<a class="sourceLine" id="cb2-28" title="28"><span class="co">#&gt; $input_unit</span></a>
+<a class="sourceLine" id="cb2-29" title="29"><span class="co">#&gt; [1] &quot;Field&quot;</span></a>
+<a class="sourceLine" id="cb2-30" title="30"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-31" title="31"><span class="co">#&gt; $output_unit</span></a>
+<a class="sourceLine" id="cb2-32" title="32"><span class="co">#&gt; [1] &quot;Field&quot;</span></a>
+<a class="sourceLine" id="cb2-33" title="33"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-34" title="34"><span class="co">#&gt; $model</span></a>
+<a class="sourceLine" id="cb2-35" title="35"><span class="co">#&gt; [1] &quot;veh_rad_edge&quot;</span></a>
+<a class="sourceLine" id="cb2-36" title="36"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-37" title="37"><span class="co">#&gt; $phi</span></a>
+<a class="sourceLine" id="cb2-38" title="38"><span class="co">#&gt; [1] 0.27</span></a>
+<a class="sourceLine" id="cb2-39" title="39"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-40" title="40"><span class="co">#&gt; $perm_h</span></a>
+<a class="sourceLine" id="cb2-41" title="41"><span class="co">#&gt; [1] 64.2</span></a>
+<a class="sourceLine" id="cb2-42" title="42"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-43" title="43"><span class="co">#&gt; $h_a</span></a>
+<a class="sourceLine" id="cb2-44" title="44"><span class="co">#&gt; [1] 20</span></a>
+<a class="sourceLine" id="cb2-45" title="45"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-46" title="46"><span class="co">#&gt; $r_a</span></a>
+<a class="sourceLine" id="cb2-47" title="47"><span class="co">#&gt; [1] 74460</span></a>
+<a class="sourceLine" id="cb2-48" title="48"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-49" title="49"><span class="co">#&gt; $r_R</span></a>
+<a class="sourceLine" id="cb2-50" title="50"><span class="co">#&gt; [1] 14892</span></a>
+<a class="sourceLine" id="cb2-51" title="51"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-52" title="52"><span class="co">#&gt; $tetha</span></a>
+<a class="sourceLine" id="cb2-53" title="53"><span class="co">#&gt; [1] 180</span></a>
+<a class="sourceLine" id="cb2-54" title="54"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-55" title="55"><span class="co">#&gt; $mu_water</span></a>
+<a class="sourceLine" id="cb2-56" title="56"><span class="co">#&gt; [1] 0.485</span></a>
+<a class="sourceLine" id="cb2-57" title="57"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-58" title="58"><span class="co">#&gt; $c_water</span></a>
+<a class="sourceLine" id="cb2-59" title="59"><span class="co">#&gt; [1] 3.88e-06</span></a>
+<a class="sourceLine" id="cb2-60" title="60"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-61" title="61"><span class="co">#&gt; $c_rock</span></a>
+<a class="sourceLine" id="cb2-62" title="62"><span class="co">#&gt; [1] 2e-06</span></a>
+<a class="sourceLine" id="cb2-63" title="63"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-64" title="64"><span class="co">#&gt; $pressure</span></a>
+<a class="sourceLine" id="cb2-65" title="65"><span class="co">#&gt; [1] 1640 1600 1400 1200 1000  800  600  400</span></a>
+<a class="sourceLine" id="cb2-66" title="66"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-67" title="67"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb2-68" title="68"><span class="co">#&gt; [1] &quot;veh_rad_edge&quot; &quot;aquifer&quot;</span></a>
+<a class="sourceLine" id="cb2-69" title="69"></a>
+<a class="sourceLine" id="cb2-70" title="70">pred_veh &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb2-71" title="71"></a>
+<a class="sourceLine" id="cb2-72" title="72"><span class="kw">head</span>(pred_veh)</a>
+<a class="sourceLine" id="cb2-73" title="73"><span class="co">#&gt;         Date Time (days)  We (MMbbl)</span></a>
+<a class="sourceLine" id="cb2-74" title="74"><span class="co">#&gt; 1 2020-05-12       0.000  0.00000000</span></a>
+<a class="sourceLine" id="cb2-75" title="75"><span class="co">#&gt; 2 2020-09-23     134.320  0.06185335</span></a>
+<a class="sourceLine" id="cb2-76" title="76"><span class="co">#&gt; 3 2022-10-19     890.235  1.27831951</span></a>
+<a class="sourceLine" id="cb2-77" title="77"><span class="co">#&gt; 4 2025-04-25    1809.305  4.19222802</span></a>
+<a class="sourceLine" id="cb2-78" title="78"><span class="co">#&gt; 5 2028-02-02    2822.180  8.46586625</span></a>
+<a class="sourceLine" id="cb2-79" title="79"><span class="co">#&gt; 6 2032-04-11    4352.990 15.65627937</span></a>
+<a class="sourceLine" id="cb2-80" title="80"></a>
+<a class="sourceLine" id="cb2-81" title="81">pred_veh <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (MMbbl)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-82" title="82"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-83" title="83"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-2-un-steady-state-radial-flow-bottom-water-drive" class="section level4">
+<h4><code>Example 2: Un-steady state radial flow, bottom-water drive</code></h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.368</span>,<span class="fl">2.439</span>,<span class="fl">4.957</span>,<span class="fl">7.732</span>,<span class="fl">11.926</span>,<span class="fl">18.126</span>,<span class="fl">30.044</span>) <span class="op">*</span><span class="st"> </span><span class="dv">365</span>, <span class="dt">unit =</span> <span class="st">&quot;day&quot;</span>)</a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;uss&quot;</span>, </a>
+<a class="sourceLine" id="cb3-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;radial&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_h =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb3-9" title="9">                            <span class="dt">perm_v =</span> <span class="fl">64.2</span>, <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">r_a =</span> <span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">14892</span>, <span class="dt">r_R =</span> <span class="dv">14892</span>, </a>
+<a class="sourceLine" id="cb3-10" title="10">                            <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, </a>
+<a class="sourceLine" id="cb3-11" title="11">                            <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb3-12" title="12"></a>
+<a class="sourceLine" id="cb3-13" title="13">pred_ykh &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb3-14" title="14"></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="kw">head</span>(pred_ykh)</a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt;         Date Time (days) We (MMbbl)</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt; 1 2020-05-12       0.000  0.0000000</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt; 2 2020-09-23     134.320  0.1600501</span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt; 3 2022-10-19     890.235  2.5380986</span></a>
+<a class="sourceLine" id="cb3-20" title="20"><span class="co">#&gt; 4 2025-04-25    1809.305  8.0646132</span></a>
+<a class="sourceLine" id="cb3-21" title="21"><span class="co">#&gt; 5 2028-02-02    2822.180 16.0265710</span></a>
+<a class="sourceLine" id="cb3-22" title="22"><span class="co">#&gt; 6 2032-04-11    4352.990 29.3508862</span></a>
+<a class="sourceLine" id="cb3-23" title="23"></a>
+<a class="sourceLine" id="cb3-24" title="24">pred_ykh <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (MMbbl)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-25" title="25"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-26" title="26"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-3-pseudo-steady-state-radial-flow-edge-water-drive" class="section level4">
+<h4><code>Example 3: Pseudo-steady state radial flow, edge-water drive</code></h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.368</span>,<span class="fl">2.439</span>,<span class="fl">4.957</span>,<span class="fl">7.732</span>,<span class="fl">11.926</span>,<span class="fl">18.126</span>,<span class="fl">30.044</span>) <span class="op">*</span><span class="st"> </span><span class="dv">365</span>, <span class="dt">unit =</span> <span class="st">&quot;day&quot;</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;pss&quot;</span>, </a>
+<a class="sourceLine" id="cb4-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;radial&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;edge&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_h =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb4-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">r_a =</span> <span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">14892</span>, <span class="dt">r_R =</span> <span class="dv">14892</span>, <span class="dt">tetha =</span> <span class="dv">180</span>,</a>
+<a class="sourceLine" id="cb4-10" title="10">                            <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, </a>
+<a class="sourceLine" id="cb4-11" title="11">                            <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb4-12" title="12"></a>
+<a class="sourceLine" id="cb4-13" title="13">pred_fetk &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb4-14" title="14"></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="kw">head</span>(pred_fetk)</a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt;         Date Time (days)  We (MMbbl)</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="co">#&gt; 1 2020-05-12       0.000  0.00000000</span></a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="co">#&gt; 2 2020-09-23     134.320  0.02884514</span></a>
+<a class="sourceLine" id="cb4-19" title="19"><span class="co">#&gt; 3 2022-10-19     890.235  1.08324703</span></a>
+<a class="sourceLine" id="cb4-20" title="20"><span class="co">#&gt; 4 2025-04-25    1809.305  3.94690549</span></a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="co">#&gt; 5 2028-02-02    2822.180  8.44348341</span></a>
+<a class="sourceLine" id="cb4-22" title="22"><span class="co">#&gt; 6 2032-04-11    4352.990 16.33925334</span></a>
+<a class="sourceLine" id="cb4-23" title="23"></a>
+<a class="sourceLine" id="cb4-24" title="24">pred_fetk <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (MMbbl)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-25" title="25"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb4-26" title="26"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-4-un-steady-state-linear-flow-edge-water-drive" class="section level4">
+<h4><code>Example 4: Un-steady state linear flow, edge-water drive</code></h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.368</span>,<span class="fl">2.439</span>,<span class="fl">4.957</span>,<span class="fl">7.732</span>,<span class="fl">11.926</span>,<span class="fl">18.126</span>,<span class="fl">30.044</span>) <span class="op">*</span><span class="st"> </span><span class="dv">365</span>, <span class="dt">unit =</span> <span class="st">&quot;day&quot;</span>)</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;uss&quot;</span>, </a>
+<a class="sourceLine" id="cb5-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;linear&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;edge&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_h =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb5-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">w_a =</span> <span class="dv">29784</span>, <span class="dt">l_a =</span> <span class="dv">161145</span>, <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, </a>
+<a class="sourceLine" id="cb5-10" title="10">                            <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb5-11" title="11"></a>
+<a class="sourceLine" id="cb5-12" title="12">pred_nb_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="kw">head</span>(pred_nb_<span class="dv">01</span>)</a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="co">#&gt;         Date Time (days) We (MMbbl)</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="co">#&gt; 1 2020-05-12       0.000 0.00000000</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="co">#&gt; 2 2020-09-23     134.320 0.03199772</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="co">#&gt; 3 2022-10-19     890.235 0.53782163</span></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="co">#&gt; 4 2025-04-25    1809.305 1.63239439</span></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="co">#&gt; 5 2028-02-02    2822.180 3.09768169</span></a>
+<a class="sourceLine" id="cb5-21" title="21"><span class="co">#&gt; 6 2032-04-11    4352.990 5.35540873</span></a>
+<a class="sourceLine" id="cb5-22" title="22"></a>
+<a class="sourceLine" id="cb5-23" title="23">pred_nb_<span class="dv">01</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (MMbbl)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-24" title="24"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-25" title="25"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-5-un-steady-state-linear-flow-bottom-water-drive" class="section level4">
+<h4><code>Example 5: Un-steady state linear flow, bottom-water drive</code></h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.368</span>,<span class="fl">2.439</span>,<span class="fl">4.957</span>,<span class="fl">7.732</span>,<span class="fl">11.926</span>,<span class="fl">18.126</span>,<span class="fl">30.044</span>) <span class="op">*</span><span class="st"> </span><span class="dv">365</span>, <span class="dt">unit =</span> <span class="st">&quot;day&quot;</span>)</a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;uss&quot;</span>, </a>
+<a class="sourceLine" id="cb6-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;linear&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_v =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb6-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">w_a =</span> <span class="dv">29784</span>, <span class="dt">l_a =</span> <span class="dv">161145</span>, <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, </a>
+<a class="sourceLine" id="cb6-10" title="10">                            <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb6-11" title="11"></a>
+<a class="sourceLine" id="cb6-12" title="12">pred_nb_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb6-13" title="13"></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="kw">head</span>(pred_nb_<span class="dv">02</span>)</a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="co">#&gt;         Date Time (days) We (MMbbl)</span></a>
+<a class="sourceLine" id="cb6-16" title="16"><span class="co">#&gt; 1 2020-05-12       0.000  0.0000000</span></a>
+<a class="sourceLine" id="cb6-17" title="17"><span class="co">#&gt; 2 2020-09-23     134.320  0.5428142</span></a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="co">#&gt; 3 2022-10-19     890.235  3.7996992</span></a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="co">#&gt; 4 2025-04-25    1809.305  9.2278409</span></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="co">#&gt; 5 2028-02-02    2822.180 14.6559827</span></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="co">#&gt; 6 2032-04-11    4352.990 20.0841244</span></a>
+<a class="sourceLine" id="cb6-22" title="22"></a>
+<a class="sourceLine" id="cb6-23" title="23">pred_nb_<span class="dv">02</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (MMbbl)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-24" title="24"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-25" title="25"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-6-pseudo-steady-state-linear-flow-edge-water-drive" class="section level4">
+<h4><code>Example 6: Pseudo-steady state linear flow, edge-water drive</code></h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.368</span>,<span class="fl">2.439</span>,<span class="fl">4.957</span>,<span class="fl">7.732</span>,<span class="fl">11.926</span>,<span class="fl">18.126</span>,<span class="fl">30.044</span>) <span class="op">*</span><span class="st"> </span><span class="dv">365</span>, <span class="dt">unit =</span> <span class="st">&quot;day&quot;</span>)</a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;pss&quot;</span>, </a>
+<a class="sourceLine" id="cb7-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;linear&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;edge&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_h =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb7-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">w_a =</span> <span class="dv">29784</span>, <span class="dt">l_a =</span> <span class="dv">161145</span>, <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, </a>
+<a class="sourceLine" id="cb7-10" title="10">                            <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb7-11" title="11"></a>
+<a class="sourceLine" id="cb7-12" title="12">parameters</a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt; $input_unit</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt; [1] &quot;Field&quot;</span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt; $output_unit</span></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; [1] &quot;Field&quot;</span></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-19" title="19"><span class="co">#&gt; $model</span></a>
+<a class="sourceLine" id="cb7-20" title="20"><span class="co">#&gt; [1] &quot;fetk_lin_edge&quot;</span></a>
+<a class="sourceLine" id="cb7-21" title="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-22" title="22"><span class="co">#&gt; $phi</span></a>
+<a class="sourceLine" id="cb7-23" title="23"><span class="co">#&gt; [1] 0.27</span></a>
+<a class="sourceLine" id="cb7-24" title="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-25" title="25"><span class="co">#&gt; $perm_h</span></a>
+<a class="sourceLine" id="cb7-26" title="26"><span class="co">#&gt; [1] 64.2</span></a>
+<a class="sourceLine" id="cb7-27" title="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-28" title="28"><span class="co">#&gt; $h_a</span></a>
+<a class="sourceLine" id="cb7-29" title="29"><span class="co">#&gt; [1] 20</span></a>
+<a class="sourceLine" id="cb7-30" title="30"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-31" title="31"><span class="co">#&gt; $w_a</span></a>
+<a class="sourceLine" id="cb7-32" title="32"><span class="co">#&gt; [1] 29784</span></a>
+<a class="sourceLine" id="cb7-33" title="33"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-34" title="34"><span class="co">#&gt; $l_a</span></a>
+<a class="sourceLine" id="cb7-35" title="35"><span class="co">#&gt; [1] 161145</span></a>
+<a class="sourceLine" id="cb7-36" title="36"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-37" title="37"><span class="co">#&gt; $mu_water</span></a>
+<a class="sourceLine" id="cb7-38" title="38"><span class="co">#&gt; [1] 0.485</span></a>
+<a class="sourceLine" id="cb7-39" title="39"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-40" title="40"><span class="co">#&gt; $c_water</span></a>
+<a class="sourceLine" id="cb7-41" title="41"><span class="co">#&gt; [1] 3.88e-06</span></a>
+<a class="sourceLine" id="cb7-42" title="42"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-43" title="43"><span class="co">#&gt; $c_rock</span></a>
+<a class="sourceLine" id="cb7-44" title="44"><span class="co">#&gt; [1] 2e-06</span></a>
+<a class="sourceLine" id="cb7-45" title="45"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-46" title="46"><span class="co">#&gt; $pressure</span></a>
+<a class="sourceLine" id="cb7-47" title="47"><span class="co">#&gt; [1] 1640 1600 1400 1200 1000  800  600  400</span></a>
+<a class="sourceLine" id="cb7-48" title="48"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-49" title="49"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb7-50" title="50"><span class="co">#&gt; [1] &quot;fetk_lin_edge&quot; &quot;aquifer&quot;</span></a>
+<a class="sourceLine" id="cb7-51" title="51"></a>
+<a class="sourceLine" id="cb7-52" title="52">pred_fetk_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb7-53" title="53"></a>
+<a class="sourceLine" id="cb7-54" title="54"><span class="kw">head</span>(pred_fetk_<span class="dv">02</span>)</a>
+<a class="sourceLine" id="cb7-55" title="55"><span class="co">#&gt;         Date Time (days)  We (MMbbl)</span></a>
+<a class="sourceLine" id="cb7-56" title="56"><span class="co">#&gt; 1 2020-05-12       0.000 0.000000000</span></a>
+<a class="sourceLine" id="cb7-57" title="57"><span class="co">#&gt; 2 2020-09-23     134.320 0.004426176</span></a>
+<a class="sourceLine" id="cb7-58" title="58"><span class="co">#&gt; 3 2022-10-19     890.235 0.175334148</span></a>
+<a class="sourceLine" id="cb7-59" title="59"><span class="co">#&gt; 4 2025-04-25    1809.305 0.668533598</span></a>
+<a class="sourceLine" id="cb7-60" title="60"><span class="co">#&gt; 5 2028-02-02    2822.180 1.506005132</span></a>
+<a class="sourceLine" id="cb7-61" title="61"><span class="co">#&gt; 6 2032-04-11    4352.990 3.161133684</span></a>
+<a class="sourceLine" id="cb7-62" title="62"></a>
+<a class="sourceLine" id="cb7-63" title="63">pred_fetk_<span class="dv">02</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (MMbbl)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-64" title="64"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb7-65" title="65"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-7-pseudo-steady-state-linear-flow-bottom-water-drive" class="section level4">
+<h4><code>Example 7: Pseudo-steady state linear flow, bottom-water drive</code></h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.368</span>,<span class="fl">2.439</span>,<span class="fl">4.957</span>,<span class="fl">7.732</span>,<span class="fl">11.926</span>,<span class="fl">18.126</span>,<span class="fl">30.044</span>) <span class="op">*</span><span class="st"> </span><span class="dv">365</span>, <span class="dt">unit =</span> <span class="st">&quot;day&quot;</span>)</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;pss&quot;</span>, </a>
+<a class="sourceLine" id="cb8-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;linear&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_v =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb8-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">w_a =</span> <span class="dv">29784</span>, <span class="dt">l_a =</span> <span class="dv">161145</span>, <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, </a>
+<a class="sourceLine" id="cb8-10" title="10">                            <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb8-11" title="11"></a>
+<a class="sourceLine" id="cb8-12" title="12">pred_fetk_<span class="dv">03</span> &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb8-13" title="13"></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="kw">head</span>(pred_fetk_<span class="dv">03</span>)</a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt;         Date Time (days) We (MMbbl)</span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; 1 2020-05-12       0.000  0.0000000</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt; 2 2020-09-23     134.320  0.5428142</span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="co">#&gt; 3 2022-10-19     890.235  3.7996992</span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="co">#&gt; 4 2025-04-25    1809.305  9.2278409</span></a>
+<a class="sourceLine" id="cb8-20" title="20"><span class="co">#&gt; 5 2028-02-02    2822.180 14.6559827</span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="co">#&gt; 6 2032-04-11    4352.990 20.0841244</span></a>
+<a class="sourceLine" id="cb8-22" title="22"></a>
+<a class="sourceLine" id="cb8-23" title="23">pred_fetk_<span class="dv">03</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (MMbbl)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-25" title="25"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-8-un-steady-state-radial-flow-edge-water-drive" class="section level4">
+<h4><code>Example 8: Un-steady state radial flow, edge-water drive</code></h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb9-4" title="4"></a>
+<a class="sourceLine" id="cb9-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2020/1/1&quot;</span>), <span class="dt">by =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">length.out =</span> <span class="dv">8</span>), <span class="dt">unit =</span> <span class="st">&quot;date&quot;</span>)</a>
+<a class="sourceLine" id="cb9-6" title="6"></a>
+<a class="sourceLine" id="cb9-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;SI&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;uss&quot;</span>, </a>
+<a class="sourceLine" id="cb9-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;radial&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;edge&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_h =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb9-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">r_a =</span> <span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">14892</span>, <span class="dt">r_R =</span> <span class="dv">14892</span>, <span class="dt">tetha =</span> <span class="dv">180</span>,</a>
+<a class="sourceLine" id="cb9-10" title="10">                            <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, </a>
+<a class="sourceLine" id="cb9-11" title="11">                            <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb9-12" title="12"></a>
+<a class="sourceLine" id="cb9-13" title="13">aqu_time</a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; $t</span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; [1]    0  366  731 1096 1461 1827 2192 2557</span></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; $unit</span></a>
+<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt; [1] &quot;date&quot;</span></a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt; $reference_date</span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="co">#&gt; [1] &quot;2020-01-01&quot;</span></a>
+<a class="sourceLine" id="cb9-22" title="22"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-23" title="23"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb9-24" title="24"><span class="co">#&gt; [1] &quot;day&quot;  &quot;time&quot;</span></a>
+<a class="sourceLine" id="cb9-25" title="25"></a>
+<a class="sourceLine" id="cb9-26" title="26">parameters</a>
+<a class="sourceLine" id="cb9-27" title="27"><span class="co">#&gt; $input_unit</span></a>
+<a class="sourceLine" id="cb9-28" title="28"><span class="co">#&gt; [1] &quot;Field&quot;</span></a>
+<a class="sourceLine" id="cb9-29" title="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-30" title="30"><span class="co">#&gt; $output_unit</span></a>
+<a class="sourceLine" id="cb9-31" title="31"><span class="co">#&gt; [1] &quot;SI&quot;</span></a>
+<a class="sourceLine" id="cb9-32" title="32"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-33" title="33"><span class="co">#&gt; $model</span></a>
+<a class="sourceLine" id="cb9-34" title="34"><span class="co">#&gt; [1] &quot;veh_rad_edge&quot;</span></a>
+<a class="sourceLine" id="cb9-35" title="35"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-36" title="36"><span class="co">#&gt; $phi</span></a>
+<a class="sourceLine" id="cb9-37" title="37"><span class="co">#&gt; [1] 0.27</span></a>
+<a class="sourceLine" id="cb9-38" title="38"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-39" title="39"><span class="co">#&gt; $perm_h</span></a>
+<a class="sourceLine" id="cb9-40" title="40"><span class="co">#&gt; [1] 64.2</span></a>
+<a class="sourceLine" id="cb9-41" title="41"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-42" title="42"><span class="co">#&gt; $h_a</span></a>
+<a class="sourceLine" id="cb9-43" title="43"><span class="co">#&gt; [1] 20</span></a>
+<a class="sourceLine" id="cb9-44" title="44"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-45" title="45"><span class="co">#&gt; $r_a</span></a>
+<a class="sourceLine" id="cb9-46" title="46"><span class="co">#&gt; [1] 74460</span></a>
+<a class="sourceLine" id="cb9-47" title="47"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-48" title="48"><span class="co">#&gt; $r_R</span></a>
+<a class="sourceLine" id="cb9-49" title="49"><span class="co">#&gt; [1] 14892</span></a>
+<a class="sourceLine" id="cb9-50" title="50"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-51" title="51"><span class="co">#&gt; $tetha</span></a>
+<a class="sourceLine" id="cb9-52" title="52"><span class="co">#&gt; [1] 180</span></a>
+<a class="sourceLine" id="cb9-53" title="53"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-54" title="54"><span class="co">#&gt; $mu_water</span></a>
+<a class="sourceLine" id="cb9-55" title="55"><span class="co">#&gt; [1] 0.485</span></a>
+<a class="sourceLine" id="cb9-56" title="56"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-57" title="57"><span class="co">#&gt; $c_water</span></a>
+<a class="sourceLine" id="cb9-58" title="58"><span class="co">#&gt; [1] 3.88e-06</span></a>
+<a class="sourceLine" id="cb9-59" title="59"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-60" title="60"><span class="co">#&gt; $c_rock</span></a>
+<a class="sourceLine" id="cb9-61" title="61"><span class="co">#&gt; [1] 2e-06</span></a>
+<a class="sourceLine" id="cb9-62" title="62"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-63" title="63"><span class="co">#&gt; $pressure</span></a>
+<a class="sourceLine" id="cb9-64" title="64"><span class="co">#&gt; [1] 1640 1600 1400 1200 1000  800  600  400</span></a>
+<a class="sourceLine" id="cb9-65" title="65"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-66" title="66"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb9-67" title="67"><span class="co">#&gt; [1] &quot;veh_rad_edge&quot; &quot;aquifer&quot;</span></a>
+<a class="sourceLine" id="cb9-68" title="68"></a>
+<a class="sourceLine" id="cb9-69" title="69">pred_veh &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb9-70" title="70"></a>
+<a class="sourceLine" id="cb9-71" title="71"><span class="kw">head</span>(pred_veh)</a>
+<a class="sourceLine" id="cb9-72" title="72"><span class="co">#&gt;         Date Time (days)   We (m3)</span></a>
+<a class="sourceLine" id="cb9-73" title="73"><span class="co">#&gt; 1 2020-01-01           0       0.0</span></a>
+<a class="sourceLine" id="cb9-74" title="74"><span class="co">#&gt; 2 2021-01-01         366   18021.0</span></a>
+<a class="sourceLine" id="cb9-75" title="75"><span class="co">#&gt; 3 2022-01-01         731  135900.7</span></a>
+<a class="sourceLine" id="cb9-76" title="76"><span class="co">#&gt; 4 2023-01-01        1096  383984.4</span></a>
+<a class="sourceLine" id="cb9-77" title="77"><span class="co">#&gt; 5 2024-01-01        1461  722190.1</span></a>
+<a class="sourceLine" id="cb9-78" title="78"><span class="co">#&gt; 6 2025-01-01        1827 1141218.1</span></a>
+<a class="sourceLine" id="cb9-79" title="79"></a>
+<a class="sourceLine" id="cb9-80" title="80">pred_veh <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (days)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (m3)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-81" title="81"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-82" title="82"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+<div id="example-8-un-steady-state-radial-flow-edge-water-drive-1" class="section level4">
+<h4><code>Example 8: Un-steady state radial flow, edge-water drive</code></h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">library</span>(Raquifer)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb10-4" title="4"></a>
+<a class="sourceLine" id="cb10-5" title="5">aqu_time &lt;-<span class="st"> </span><span class="kw">aquifer_time</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">unit =</span> <span class="st">&quot;month&quot;</span>)</a>
+<a class="sourceLine" id="cb10-6" title="6"></a>
+<a class="sourceLine" id="cb10-7" title="7">parameters &lt;-<span class="st"> </span><span class="kw">aquifer_param</span>(<span class="dt">input_unit =</span> <span class="st">&quot;Field&quot;</span>, <span class="dt">output_unit =</span> <span class="st">&quot;SI&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;uss&quot;</span>, </a>
+<a class="sourceLine" id="cb10-8" title="8">                            <span class="dt">flow_type =</span> <span class="st">&quot;radial&quot;</span>, <span class="dt">water_drive =</span> <span class="st">&quot;edge&quot;</span>, <span class="dt">phi =</span> <span class="fl">0.27</span>, <span class="dt">perm_h =</span> <span class="fl">64.2</span>, </a>
+<a class="sourceLine" id="cb10-9" title="9">                            <span class="dt">h_a =</span> <span class="dv">20</span>, <span class="dt">r_a =</span> <span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">14892</span>, <span class="dt">r_R =</span> <span class="dv">14892</span>, <span class="dt">tetha =</span> <span class="dv">180</span>,</a>
+<a class="sourceLine" id="cb10-10" title="10">                            <span class="dt">mu_water =</span> <span class="fl">0.485</span>, <span class="dt">c_water =</span> <span class="fl">3.88e-6</span>, <span class="dt">c_rock =</span> <span class="fl">2e-6</span>, </a>
+<a class="sourceLine" id="cb10-11" title="11">                            <span class="dt">pressure =</span> <span class="kw">c</span>(<span class="dv">1640</span>,<span class="dv">1600</span>,<span class="dv">1400</span>,<span class="dv">1200</span>,<span class="dv">1000</span>,<span class="dv">800</span>,<span class="dv">600</span>,<span class="dv">400</span>))</a>
+<a class="sourceLine" id="cb10-12" title="12"></a>
+<a class="sourceLine" id="cb10-13" title="13">aqu_time</a>
+<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt; $t</span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="co">#&gt; [1] 1 2 3 4 5 6 7 8</span></a>
+<a class="sourceLine" id="cb10-16" title="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt; $unit</span></a>
+<a class="sourceLine" id="cb10-18" title="18"><span class="co">#&gt; [1] &quot;month&quot;</span></a>
+<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt; $reference_date</span></a>
+<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt; [1] &quot;2020-05-12&quot;</span></a>
+<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb10-24" title="24"><span class="co">#&gt; [1] &quot;month&quot; &quot;time&quot;</span></a>
+<a class="sourceLine" id="cb10-25" title="25"></a>
+<a class="sourceLine" id="cb10-26" title="26">parameters</a>
+<a class="sourceLine" id="cb10-27" title="27"><span class="co">#&gt; $input_unit</span></a>
+<a class="sourceLine" id="cb10-28" title="28"><span class="co">#&gt; [1] &quot;Field&quot;</span></a>
+<a class="sourceLine" id="cb10-29" title="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-30" title="30"><span class="co">#&gt; $output_unit</span></a>
+<a class="sourceLine" id="cb10-31" title="31"><span class="co">#&gt; [1] &quot;SI&quot;</span></a>
+<a class="sourceLine" id="cb10-32" title="32"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-33" title="33"><span class="co">#&gt; $model</span></a>
+<a class="sourceLine" id="cb10-34" title="34"><span class="co">#&gt; [1] &quot;veh_rad_edge&quot;</span></a>
+<a class="sourceLine" id="cb10-35" title="35"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-36" title="36"><span class="co">#&gt; $phi</span></a>
+<a class="sourceLine" id="cb10-37" title="37"><span class="co">#&gt; [1] 0.27</span></a>
+<a class="sourceLine" id="cb10-38" title="38"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-39" title="39"><span class="co">#&gt; $perm_h</span></a>
+<a class="sourceLine" id="cb10-40" title="40"><span class="co">#&gt; [1] 64.2</span></a>
+<a class="sourceLine" id="cb10-41" title="41"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-42" title="42"><span class="co">#&gt; $h_a</span></a>
+<a class="sourceLine" id="cb10-43" title="43"><span class="co">#&gt; [1] 20</span></a>
+<a class="sourceLine" id="cb10-44" title="44"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-45" title="45"><span class="co">#&gt; $r_a</span></a>
+<a class="sourceLine" id="cb10-46" title="46"><span class="co">#&gt; [1] 74460</span></a>
+<a class="sourceLine" id="cb10-47" title="47"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-48" title="48"><span class="co">#&gt; $r_R</span></a>
+<a class="sourceLine" id="cb10-49" title="49"><span class="co">#&gt; [1] 14892</span></a>
+<a class="sourceLine" id="cb10-50" title="50"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-51" title="51"><span class="co">#&gt; $tetha</span></a>
+<a class="sourceLine" id="cb10-52" title="52"><span class="co">#&gt; [1] 180</span></a>
+<a class="sourceLine" id="cb10-53" title="53"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-54" title="54"><span class="co">#&gt; $mu_water</span></a>
+<a class="sourceLine" id="cb10-55" title="55"><span class="co">#&gt; [1] 0.485</span></a>
+<a class="sourceLine" id="cb10-56" title="56"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-57" title="57"><span class="co">#&gt; $c_water</span></a>
+<a class="sourceLine" id="cb10-58" title="58"><span class="co">#&gt; [1] 3.88e-06</span></a>
+<a class="sourceLine" id="cb10-59" title="59"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-60" title="60"><span class="co">#&gt; $c_rock</span></a>
+<a class="sourceLine" id="cb10-61" title="61"><span class="co">#&gt; [1] 2e-06</span></a>
+<a class="sourceLine" id="cb10-62" title="62"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-63" title="63"><span class="co">#&gt; $pressure</span></a>
+<a class="sourceLine" id="cb10-64" title="64"><span class="co">#&gt; [1] 1640 1600 1400 1200 1000  800  600  400</span></a>
+<a class="sourceLine" id="cb10-65" title="65"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-66" title="66"><span class="co">#&gt; attr(,&quot;class&quot;)</span></a>
+<a class="sourceLine" id="cb10-67" title="67"><span class="co">#&gt; [1] &quot;veh_rad_edge&quot; &quot;aquifer&quot;</span></a>
+<a class="sourceLine" id="cb10-68" title="68"></a>
+<a class="sourceLine" id="cb10-69" title="69">pred_veh &lt;-<span class="st"> </span><span class="kw">aquifer_predict</span>(<span class="dt">aquifer_lst =</span> parameters, <span class="dt">time_lst =</span> aqu_time)</a>
+<a class="sourceLine" id="cb10-70" title="70"></a>
+<a class="sourceLine" id="cb10-71" title="71"><span class="kw">head</span>(pred_veh)</a>
+<a class="sourceLine" id="cb10-72" title="72"><span class="co">#&gt;         Date Time (months)    We (m3)</span></a>
+<a class="sourceLine" id="cb10-73" title="73"><span class="co">#&gt; 1 2020-06-11             1      0.000</span></a>
+<a class="sourceLine" id="cb10-74" title="74"><span class="co">#&gt; 2 2020-07-11             2   4236.423</span></a>
+<a class="sourceLine" id="cb10-75" title="75"><span class="co">#&gt; 3 2020-08-11             3  31650.466</span></a>
+<a class="sourceLine" id="cb10-76" title="76"><span class="co">#&gt; 4 2020-09-10             4  87609.327</span></a>
+<a class="sourceLine" id="cb10-77" title="77"><span class="co">#&gt; 5 2020-10-11             5 161084.687</span></a>
+<a class="sourceLine" id="cb10-78" title="78"><span class="co">#&gt; 6 2020-11-10             6 249479.619</span></a>
+<a class="sourceLine" id="cb10-79" title="79"></a>
+<a class="sourceLine" id="cb10-80" title="80">pred_veh <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Time (months)</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">We (m3)</span><span class="st">`</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-81" title="81"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-82" title="82"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2><code>References</code></h2>
+<div id="refs" class="references">
+<div id="ref-Fetkovich1971">
+<p>Fetkovich, M. J. (1971). A Simplified Approach to Water Influx Calculations-Finite Aquifer Systems. <em>Journal of Petroleum Technology</em>, <em>23</em>(07), 814–828. <a href="https://doi.org/10.2118/2603-PA">https://doi.org/10.2118/2603-PA</a></p>
+</div>
+<div id="ref-Nabor1964">
+<p>Nabor, G. W., &amp; Barham, R. H. (1964). Linear Aquifer Behavior. <em>Journal of Petroleum Technology</em>, <em>16</em>(05), 561–563. <a href="https://doi.org/10.2118/791-PA">https://doi.org/10.2118/791-PA</a></p>
+</div>
+<div id="ref-VanEverdingen1949">
+<p>Van Everdingen, A. F., &amp; Hurst, W. (1949). The Application of the Laplace Transformation to Flow Problems in Reservoirs. <em>Journal of Petroleum Technology</em>, <em>1</em>(12), 305–324. <a href="https://doi.org/10.2118/949305-G">https://doi.org/10.2118/949305-G</a></p>
+</div>
+<div id="ref-Yildiz2007">
+<p>Yildiz, T., &amp; Khosravi, A. (2007). An Analytical Bottomwaterdrive Aquifer Model for Material-Balance Analysis. <em>SPE Reservoir Evaluation &amp; Engineering</em>, <em>10</em>(06), 618–628. <a href="https://doi.org/10.2118/103283-PA">https://doi.org/10.2118/103283-PA</a></p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
